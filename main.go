@@ -12,12 +12,12 @@ import (
 
 func main() {
 	go whatsauth.RunHub()
-	site := fiber.New(config.Iteung)
+	site := fiber.New()
 	site.Use(cors.New(config.Cors))
 	url.Web(site)
 	router.AuthRoute(site)
 	router.UserRoute(site)
 
-	log.Fatal(site.Listen(":8000"))
+	log.Fatal(site.Listen("0.0.0.0:8000"))
 
 }
