@@ -1,27 +1,57 @@
 package utils
 
 import (
+	"fmt"
+	"github.com/aead/chacha20poly1305"
+	"github.com/gocroot/gocroot/config"
 	"github.com/o1egl/paseto"
-
+	"log"
 	"time"
 )
 
-func GenerateToken(userID string, roleID string, privateKey string) (string, error) {
-	// Create a new PASETO token with an expiration time (e.g., 1 hour)
-	token := paseto.JSONToken{
-		Expiration: time.Now().Add(1 * time.Hour),
+type PasetoMaker struct {
+	paseto       *paseto.V2
+	symmetricKey []byte
+}
+
+func NewPasetoMaker(symmetricKey []byte) (*PasetoMaker, error) {
+	log.Println(len(symmetricKey))
+	if len(symmetricKey) != chacha20poly1305.KeySize {
+		return nil, fmt.Errorf("invalid key size: must be exactly %d characters", chacha20poly1305.KeySize)
 	}
 
-	// Add the userID to the token's "subject" claim
-	token.Subject = userID
-	token.Set("roleID", roleID)
+	maker := &PasetoMaker{
+		paseto:       paseto.NewV2(),
+		symmetricKey: []byte(symmetricKey),
+	}
 
-	// Create a PASETO token using the private key
-	encoder := paseto.NewV2()
-	tokenString, err := encoder.Sign(privateKey, token, nil)
+	return maker, nil
+}
+
+func (maker *PasetoMaker) CreateToken(userId string, roleId string) (string, error) {
+	payload, err := NewPayload(userId, roleId)
 	if err != nil {
 		return "", err
 	}
+	log.Println(payload)
 
-	return tokenString, nil
+	token, err := maker.paseto.Encrypt(maker.symmetricKey, payload, nil)
+	return token, err
+}
+
+func (maker *PasetoMaker) ValidateToken(token string) (*Payload, error) {
+	var payload Payload
+	symnetricKey := []byte(config.PrivateKey)
+
+	err := maker.paseto.Decrypt(token, symnetricKey, &payload, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Verify token expiration
+	if time.Now().After(payload.ExpiredAt) {
+		return nil, fmt.Errorf("token has expired")
+	}
+
+	return &payload, nil
 }

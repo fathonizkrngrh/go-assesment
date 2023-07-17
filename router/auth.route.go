@@ -10,9 +10,11 @@ import (
 func AuthRouter(page *fiber.App) {
 	collection := config.Ulbimongoconn
 	userRepo := repository.NewUsersRepository(collection, "users")
-	authController := controller.NewAuthController(userRepo)
+	roleRepo := repository.NewRoleRepository(collection, "roles")
+	authController := controller.NewAuthController(userRepo, roleRepo)
 
 	var path = "/auth"
 
 	page.Post(path+"/register", authController.Register)
+	page.Post(path+"/login", authController.Login)
 }

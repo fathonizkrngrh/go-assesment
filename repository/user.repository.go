@@ -69,6 +69,26 @@ func (ur *UserRepository) GetUserByID(userID string) (*models.User, error) {
 	return &user, nil
 }
 
+func (ur *UserRepository) GetAllUser() (users []*models.User, err error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cur, err := ur.c.Find(ctx, bson.M{})
+	if err != nil {
+		return nil, err
+	}
+
+	for cur.Next(ctx) {
+		var user models.User
+		if err := cur.Decode(&user); err != nil {
+			return nil, err
+		}
+		users = append(users, &user)
+	}
+
+	return users, nil
+}
+
 func (ur *UserRepository) DeleteUser(userID string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
