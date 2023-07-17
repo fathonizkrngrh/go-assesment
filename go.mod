@@ -8,12 +8,19 @@ require (
 	github.com/aiteung/presensi v0.0.12
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/gofiber/websocket/v2 v2.1.4
+	github.com/google/uuid v1.3.0
+	github.com/o1egl/paseto v1.0.0
 	github.com/whatsauth/whatsauth v0.1.82
+	go.mongodb.org/mongo-driver v1.11.1
+	golang.org/x/crypto v0.5.0
 )
 
 require (
 	aidanwoods.dev/go-paseto v1.2.0 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
+	github.com/aead/chacha20poly1305 v0.0.0-20170617001512-233f39982aeb // indirect
+	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
 	github.com/aiteung/atmessage v0.0.2 // indirect
 	github.com/aiteung/atmodel v0.0.1 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
@@ -22,7 +29,6 @@ require (
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -46,8 +52,6 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	go.mau.fi/libsignal v0.1.0 // indirect
 	go.mau.fi/whatsmeow v0.0.0-20230306190159-5caded34a872 // indirect
-	go.mongodb.org/mongo-driver v1.11.1 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.6.0 // indirect

@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/aiteung/musik"
 	"github.com/aiteung/presensi"
 	"github.com/gocroot/gocroot/config"
+	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
@@ -11,12 +11,15 @@ import (
 )
 
 func Homepage(c *fiber.Ctx) error {
-	ipaddr := musik.GetIPaddress()
-	return c.JSON(ipaddr)
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  "OK",
+		"message": "Wellcome to My API",
+	})
 }
 
 func GetPresensiBulanIni(c *fiber.Ctx) error {
 	ps := presensi.GetPresensiCurrentMonth(config.Ulbimongoconn)
+	println("test db", config.Ulbimongoconn)
 	return c.JSON(ps)
 }
 

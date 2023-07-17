@@ -19,8 +19,8 @@ var DBUlbimariainfo = atdb.DBInfo{
 }
 
 var DBUlbimongoinfo = atdb.DBInfo{
-	DBString: MongoString,
-	DBName:   "iteung",
+	DBString: "mongodb://localhost:27017/be-assesment",
+	DBName:   "be-assesment",
 }
 
 var Ulbimariaconn = atdb.MariaConnect(DBUlbimariainfo)
