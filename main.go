@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/aiteung/musik"
 	"github.com/gocroot/gocroot/config"
 	"github.com/gocroot/gocroot/router"
 	"github.com/gocroot/gocroot/url"
@@ -19,6 +18,7 @@ func main() {
 	router.AuthRoute(site)
 	router.UserRoute(site)
 
-	log.Fatal(site.Listen(musik.Dangdut()))
+	log.Fatal(site.Listen(":5000"))
 
 }
+tus
