@@ -18,6 +18,6 @@ func main() {
 	router.AuthRoute(site)
 	router.UserRoute(site)
 
-	log.Fatal(site.Listen("0.0.0.0:8000"))
+	log.Fatal(site.Listen(":8000"))
 
 }
