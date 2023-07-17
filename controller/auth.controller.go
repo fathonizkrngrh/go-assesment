@@ -112,6 +112,7 @@ func (ac *AuthController) Login(c *fiber.Ctx) error {
 
 func (ac *AuthController) GetUsers(c *fiber.Ctx) error {
 	users, err := ac.userRepo.GetAllUser()
+
 	if err != nil {
 		return c.
 			Status(http.StatusInternalServerError).
@@ -121,7 +122,38 @@ func (ac *AuthController) GetUsers(c *fiber.Ctx) error {
 		Status(http.StatusOK).
 		JSON(fiber.Map{
 			"status":  "OK",
-			"message": "Success logging in",
-			"data":    users,
+			"message": "Success get all user",
+			"data": fiber.Map{
+				"users": users,
+			},
+		})
+}
+
+func (ac *AuthController) Me(c *fiber.Ctx) error {
+	userId, _ := c.Locals("user_id").(string)
+
+	log.Println(userId)
+
+	if userId == "nil" {
+		return c.
+			Status(http.StatusNotFound).
+			JSON(fiber.Map{"status": "NOT_FOUND", "message": "UserID not found"})
+	}
+
+	users, err := ac.userRepo.GetUserByID(userId)
+	if err != nil {
+		return c.
+			Status(http.StatusInternalServerError).
+			JSON(fiber.Map{"status": "INTERNAL_SERVER_ERROR", "message": err.Error()})
+	}
+
+	return c.
+		Status(http.StatusOK).
+		JSON(fiber.Map{
+			"status":  "OK",
+			"message": "Success get all user",
+			"data": fiber.Map{
+				"users": users,
+			},
 		})
 }
