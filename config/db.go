@@ -19,7 +19,7 @@ var DBUlbimariainfo = atdb.DBInfo{
 }
 
 var DBUlbimongoinfo = atdb.DBInfo{
-	DBString: "mongodb://localhost:27017/be-assesment",
+	DBString: "mongodb+srv://fathoni:cNvzeTMnNSEz1gem@go-assesment.zoa3jfb.mongodb.net/",
 	DBName:   "be-assesment",
 }
 

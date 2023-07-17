@@ -13,7 +13,7 @@ import (
 func Homepage(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(fiber.Map{
 		"status":  "OK",
-		"message": "Wellcome to My API",
+		"message": "Wellcome to GO Assesment API",
 	})
 }
 
